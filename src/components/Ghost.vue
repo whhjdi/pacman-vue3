@@ -37,7 +37,7 @@ export default defineComponent({
   height: 63px;
   position: absolute;
   .red {
-    color: red;
+    fill: red;
   }
 
   .white {
@@ -53,7 +53,7 @@ export default defineComponent({
   }
 
   .orange {
-    color: orange;
+    fill: orange;
   }
 
   &.left {

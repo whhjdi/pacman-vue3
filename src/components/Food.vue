@@ -1,5 +1,7 @@
 <template>
-  <div class="food"></div>
+  <div class="food">
+    <div class="effective-food"></div>
+  </div>
 </template>
 
 <script>

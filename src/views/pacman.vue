@@ -18,8 +18,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import url("../styles/color.scss");
 .pacman {
-  background-color: rgb(30, 42, 164);
+  background-color: $color3;
 }
 </style>

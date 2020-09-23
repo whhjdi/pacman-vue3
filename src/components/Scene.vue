@@ -1,6 +1,6 @@
 <template>
   <main class="scene">
-    <Pacman></Pacman>
+    <Pacman :speed="10"></Pacman>
     <Ghost color="green"></Ghost>
     <Ghost color="red"></Ghost>
     <Ghost color="blue"></Ghost>
@@ -60,7 +60,6 @@ export default defineComponent({
         positions.push(poiItem);
         currentLeft += FOODSIZE;
       }
-      console.log(positions);
 
       return positions;
     };

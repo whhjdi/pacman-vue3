@@ -1,32 +1,16 @@
 <template>
-  <div class="ghost" style="left:100px">
+  <div class="ghost">
     <GhostSvg :class="color" />
   </div>
 </template>
 
 <script>
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import GhostSvg from "../assets/images/ghost.svg";
 export default defineComponent({
   components: { GhostSvg },
   props: {
-    color: String,
-    position: {
-      defult: {
-        top: "20px",
-        left: "50px"
-      }
-    }
-  },
-  setup(props) {
-    const computedPosition = computed(() => {
-      const { top, left } = props.position;
-      return { top, left };
-    });
-
-    return {
-      computedPosition
-    };
+    color: String
   }
 });
 </script>

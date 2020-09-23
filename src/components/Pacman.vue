@@ -1,5 +1,5 @@
 <template>
-  <div class="pacman">
+  <div class="pacman" :style="{ top: '123px', left: '12px' }">
     <PacmanSVG class="svg" />
   </div>
 </template>

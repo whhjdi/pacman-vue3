@@ -7,11 +7,7 @@
 <script>
 import { defineComponent } from "vue";
 
-export default defineComponent({
-  props: {
-    postion: () => []
-  }
-});
+export default defineComponent({});
 </script>
 
 <style lang="scss">

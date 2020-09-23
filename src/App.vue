@@ -1,25 +1,24 @@
 <template>
-  <pacman></pacman>
+  <Pacman></Pacman>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import pacman from "./views/pacman.vue";
+import Pacman from "./views/Pacman.vue";
+
 export default defineComponent({
   name: "App",
   components: {
-    pacman
+    Pacman
   }
 });
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto Mono", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

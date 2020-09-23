@@ -1,9 +1,15 @@
-<template> <div class="food"></div></template>
+<template>
+  <div class="food"></div>
+</template>
 
 <script>
 import { defineComponent } from "vue";
 
-export default defineComponent({});
+export default defineComponent({
+  props: {
+    postion: () => []
+  }
+});
 </script>
 
 <style lang="scss">

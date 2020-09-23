@@ -1,9 +1,26 @@
-<template> <main class="scene"></main></template>
+<template>
+  <main class="scene">
+    <Pacman></Pacman>
+    <Ghost color="green"></Ghost>
+    <Ghost color="red"></Ghost>
+    <Ghost color="blue"></Ghost>
+    <Ghost color="orange"></Ghost>
+    <Food></Food>
+  </main>
+</template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
-
-export default defineComponent({});
+import Ghost from "./Ghost.vue";
+import Pacman from "./Pacman.vue";
+import Food from "./Food.vue";
+export default defineComponent({
+  components: {
+    Ghost,
+    Pacman,
+    Food
+  }
+});
 </script>
 
 <style lang="scss">

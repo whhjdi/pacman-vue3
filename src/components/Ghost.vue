@@ -1,9 +1,34 @@
-<template> <div class="ghost"></div></template>
+<template>
+  <div class="ghost" style="left:100px">
+    <GhostSvg :class="color" />
+  </div>
+</template>
 
 <script>
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
+import GhostSvg from "../assets/images/ghost.svg";
+export default defineComponent({
+  components: { GhostSvg },
+  props: {
+    color: String,
+    position: {
+      defult: {
+        top: "20px",
+        left: "50px"
+      }
+    }
+  },
+  setup(props) {
+    const computedPosition = computed(() => {
+      const { top, left } = props.position;
+      return { top, left };
+    });
 
-export default defineComponent({});
+    return {
+      computedPosition
+    };
+  }
+});
 </script>
 
 <style lang="scss">
@@ -11,34 +36,24 @@ export default defineComponent({});
   width: 60px;
   height: 63px;
   position: absolute;
-  &.red {
-    .svg {
-      fill: red;
-    }
+  .red {
+    color: red;
   }
 
-  &.white {
-    .svg {
-      fill: white;
-    }
+  .white {
+    fill: white;
   }
 
-  &.green {
-    .svg {
-      fill: green;
-    }
+  .green {
+    fill: green;
   }
 
-  &.blue {
-    .svg {
-      fill: blue;
-    }
+  .blue {
+    fill: blue;
   }
 
-  &.orange {
-    .svg {
-      fill: orange;
-    }
+  .orange {
+    color: orange;
   }
 
   &.left {

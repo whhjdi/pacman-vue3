@@ -1,14 +1,24 @@
 <template>
   <header class="header">
     <span class="title">PACMAN</span>
-    <span class="score">SCORE:</span>
+    <span class="score"
+      >SCORE:{{ points }}
+      <span class="points">{{ playing ? "" : "GAME OVER" }}</span>
+    </span>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
-export default defineComponent({});
+export default defineComponent({
+  setup() {
+    const points = ref<number>(0);
+    const playing = ref<boolean>(false);
+
+    return { points, playing };
+  }
+});
 </script>
 
 <style lang="scss">

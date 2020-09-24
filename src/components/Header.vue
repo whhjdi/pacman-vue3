@@ -3,24 +3,24 @@
     <span class="title">PACMAN</span>
     <span class="score"
       >SCORE:{{ points }}
-      <span class="points">{{ playing ? "" : "GAME OVER" }}</span>
+      <span class="points">{{ playing ? playing : "GAME OVER" }}</span>
     </span>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 
 export default defineComponent({
   props: {
     points: {
       type: Number,
       default: 10
-    },
-    playing: {
-      type: Boolean,
-      default: true
     }
+  },
+  setup() {
+    const playing = inject("playing");
+    return { playing };
   }
 });
 </script>

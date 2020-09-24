@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { defineComponent, nextTick } from "vue";
+import { defineComponent, inject, nextTick } from "vue";
 import Pacman from "./Pacman.vue";
 import Ghost from "./Ghost.vue";
 import Food from "./Food.vue";
@@ -40,7 +40,10 @@ export default defineComponent({
       crashed: false
     };
   },
-
+  setup() {
+    const playing = inject("playing");
+    return { playing };
+  },
   async mounted() {
     this.renderFood(this.calcFoods());
     await nextTick();
@@ -68,7 +71,6 @@ export default defineComponent({
         pacmanNewY
       } = this.getPacmanPosition();
       for (let i = 0; i < 4; i++) {
-        console.log(this.$refs["ghost-" + i]);
         const currentGhostX = this.$refs["ghost-" + i].position.left;
         const currentGhostY = this.$refs["ghost-" + i].position.top;
         //食物的中心位置
@@ -85,14 +87,13 @@ export default defineComponent({
             (pacmanY >= currentGhostY && pacmanY <= currentGhostNewY) ||
             (pacmanNewY >= currentGhostY && pacmanNewY <= currentGhostNewY)
           ) {
-            console.log(111);
             this.crashed = true;
           }
         }
         if (this.crashed) {
-          console.log(111);
           clearInterval(this.timer2);
           this.killGhost();
+          this.playing = false;
           break;
         }
       }
@@ -134,12 +135,12 @@ export default defineComponent({
       }
     },
     lookForEat() {
-      const pacmanX = this.$refs.pacmanRef.position.left;
-      const pacmanY = this.$refs.pacmanRef.position.top;
-      // //中心位置的坐标
-      const pacmanNewX = this.$refs.pacmanRef.position.left + FOODSIZE / 2;
-      const pacmanNewY = this.$refs.pacmanRef.position.top + FOODSIZE / 2;
-
+      const {
+        pacmanX,
+        pacmanY,
+        pacmanNewX,
+        pacmanNewY
+      } = this.getPacmanPosition();
       const allFoods = this.calcFoods();
 
       for (let i = 0; i < allFoods; i++) {

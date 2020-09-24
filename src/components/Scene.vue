@@ -10,8 +10,9 @@
     <Pacman :speed="20" ref="pacmanRef"></Pacman>
     <Ghost
       v-for="(color, i) in ghostColors"
-      :key="'ghost' + i"
+      :key="'ghost-' + i"
       :color="color"
+      :ref="'ghost-' + i"
     ></Ghost>
   </main>
 </template>
@@ -35,22 +36,70 @@ export default defineComponent({
     return {
       positions: [],
       timer: null,
-      ghostColors: ["green", "red", "blue", "orange"]
+      ghostColors: ["green", "red", "blue", "orange"],
+      crashed: false
     };
   },
 
   async mounted() {
     this.renderFood(this.calcFoods());
     await nextTick();
-    this.timer = setInterval(this.lookForEat, 200);
+    this.timer1 = setInterval(this.lookForEat, 200);
+    this.timer2 = setInterval(this.collisionDetection, 200);
   },
   beforeUnmount() {
-    clearInterval(this.timer);
+    clearInterval(this.timer1);
+    clearInterval(this.timer2);
   },
   methods: {
+    getPacmanPosition() {
+      const pacmanX = this.$refs.pacmanRef.position.left;
+      const pacmanY = this.$refs.pacmanRef.position.top;
+      // //中心位置的坐标
+      const pacmanNewX = this.$refs.pacmanRef.position.left + FOODSIZE / 2;
+      const pacmanNewY = this.$refs.pacmanRef.position.top + FOODSIZE / 2;
+      return { pacmanX, pacmanY, pacmanNewX, pacmanNewY };
+    },
+    collisionDetection() {
+      const {
+        pacmanX,
+        pacmanY,
+        pacmanNewX,
+        pacmanNewY
+      } = this.getPacmanPosition();
+      for (let i = 0; i < 4; i++) {
+        console.log(this.$refs["ghost-" + i]);
+        const currentGhostX = this.$refs["ghost-" + i].position.left;
+        const currentGhostY = this.$refs["ghost-" + i].position.top;
+        //食物的中心位置
+        const currentGhostNewX =
+          this.$refs["ghost-" + i].position.left + FOODSIZE / 2;
+        const currentGhostNewY =
+          this.$refs["ghost-" + i].position.top + FOODSIZE / 2;
+        console.log(pacmanX, currentGhostX);
+        if (
+          (pacmanX >= currentGhostX && pacmanX <= currentGhostNewX) ||
+          (pacmanNewX >= currentGhostX && pacmanNewX <= currentGhostNewX)
+        ) {
+          if (
+            (pacmanY >= currentGhostY && pacmanY <= currentGhostNewY) ||
+            (pacmanNewY >= currentGhostY && pacmanNewY <= currentGhostNewY)
+          ) {
+            console.log(111);
+            this.crashed = true;
+          }
+        }
+        if (this.crashed) {
+          console.log(111);
+          clearInterval(this.timer2);
+          this.killGhost();
+          break;
+        }
+      }
+    },
     killGhost() {
       for (let i = 0; i < 4; i++) {
-        this.$refs.ghostRef;
+        this.ghostColors[i] = "white";
       }
     },
     calcFoods() {

@@ -1,10 +1,5 @@
 <template>
   <main class="scene">
-    <Pacman :speed="20" ref="pacmanRef"></Pacman>
-    <Ghost color="green"></Ghost>
-    <Ghost color="red"></Ghost>
-    <Ghost color="blue"></Ghost>
-    <Ghost color="orange"></Ghost>
     <Food
       v-for="(position, i) in positions"
       :key="'food-' + i"
@@ -12,6 +7,12 @@
       :left="position.left"
       :ref="'food-' + i"
     ></Food>
+    <Pacman :speed="20" ref="pacmanRef"></Pacman>
+    <Ghost
+      v-for="(color, i) in ghostColors"
+      :key="'ghost' + i"
+      :color="color"
+    ></Ghost>
   </main>
 </template>
 
@@ -33,7 +34,8 @@ export default defineComponent({
   data() {
     return {
       positions: [],
-      timer: null
+      timer: null,
+      ghostColors: ["green", "red", "blue", "orange"]
     };
   },
 
@@ -46,6 +48,11 @@ export default defineComponent({
     clearInterval(this.timer);
   },
   methods: {
+    killGhost() {
+      for (let i = 0; i < 4; i++) {
+        this.$refs.ghostRef;
+      }
+    },
     calcFoods() {
       return Math.floor(
         ((window.innerWidth - BORDER - FOODSIZE) *

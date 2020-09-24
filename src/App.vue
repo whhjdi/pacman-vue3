@@ -18,7 +18,6 @@ export default defineComponent({
     const points = ref(0);
     const playing = ref(false);
     const handlePoints = () => {
-      console.log(1);
       points.value = points.value + 1;
     };
     return { points, playing, handlePoints };
@@ -33,5 +32,6 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background-color: $color3;
+  min-width: 800px;
 }
 </style>

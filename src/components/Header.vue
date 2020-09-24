@@ -38,7 +38,6 @@ export default defineComponent({
     text-align: left;
     margin-top: 10px;
     margin-left: 10px;
-    margin-left: 150px;
   }
   .score {
     font-size: 40px;

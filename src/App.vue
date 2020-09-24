@@ -29,6 +29,7 @@ export default defineComponent({
       audio.src = require("./assets/start.mp3");
       audio.autoplay = true;
       // audio.loop = true;
+      audio.preload = "metadata";
       audio.play();
     });
     watch(playing, playing => {
@@ -49,6 +50,5 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background-color: $color3;
-  min-width: 800px;
 }
 </style>

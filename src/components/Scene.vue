@@ -78,7 +78,6 @@ export default defineComponent({
           this.$refs["ghost-" + i].position.left + FOODSIZE / 2;
         const currentGhostNewY =
           this.$refs["ghost-" + i].position.top + FOODSIZE / 2;
-        console.log(pacmanX, currentGhostX);
         if (
           (pacmanX >= currentGhostX && pacmanX <= currentGhostNewX) ||
           (pacmanNewX >= currentGhostX && pacmanNewX <= currentGhostNewX)

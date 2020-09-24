@@ -38,6 +38,13 @@ export default defineComponent({
   },
 
   async mounted() {
+    window.addEventListener("resize", () => {
+      console.log(11);
+      this.positions = [];
+      this.renderFood(this.calcFoods());
+      clearInterval(this.timer);
+      this.timer = setInterval(this.lookForEat, 200);
+    });
     this.renderFood(this.calcFoods());
     await nextTick();
     this.timer = setInterval(this.lookForEat, 200);
@@ -54,21 +61,19 @@ export default defineComponent({
       );
     },
     renderFood(allFoods) {
-      //总的个数
-
       let currentLeft = 0;
       let currentTop = 0;
 
       for (let i = 0; i < allFoods; i++) {
         //如果向右没有空间了，就向下排；
-        if (currentLeft >= window.innerWidth - BORDER) {
+        if (currentLeft + FOODSIZE >= window.innerWidth - BORDER) {
           currentTop += FOODSIZE;
           //从下一行第一个位置开始
           currentLeft = 0;
         }
 
         //如果不能向下了，结束；
-        if (currentTop >= window.innerHeight - BORDER - HEADERSIZE) {
+        if (currentTop + FOODSIZE >= window.innerHeight - BORDER - HEADERSIZE) {
           break;
         }
         const poiItem = {
@@ -83,8 +88,8 @@ export default defineComponent({
       const pacmanX = this.$refs.pacmanRef.position.left;
       const pacmanY = this.$refs.pacmanRef.position.top;
       // //中心位置的坐标
-      const pacmanNewX = this.$refs.pacmanRef.position.left - FOODSIZE / 2;
-      const pacmanNewY = this.$refs.pacmanRef.position.top - FOODSIZE / 2;
+      const pacmanNewX = this.$refs.pacmanRef.position.left + FOODSIZE / 2;
+      const pacmanNewY = this.$refs.pacmanRef.position.top + FOODSIZE / 2;
 
       const allFoods = this.calcFoods();
 
@@ -92,7 +97,6 @@ export default defineComponent({
         //获取每个食物的坐标
         const currentFoodX = this.$refs["food-" + i].left;
         const currentFoodY = this.$refs["food-" + i].top;
-        console.log(currentFoodX);
         //食物的中心位置
         const currentFoodNewX = this.$refs["food-" + i].left + FOODSIZE / 2;
         const currentFoodNewY = this.$refs["food-" + i].top + FOODSIZE / 2;
@@ -104,7 +108,6 @@ export default defineComponent({
             (pacmanY >= currentFoodY && pacmanY <= currentFoodNewY) ||
             (pacmanNewY >= currentFoodY && pacmanNewY <= currentFoodNewY)
           ) {
-            console.log(this.$refs["food-" + i].foodVisible);
             if (this.$refs["food-" + i].foodVisible)
               this.$refs["food-" + i].foodVisible = false;
           }

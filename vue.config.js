@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/pacman-vue3/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/pacman-vue3" : "/",
   css: {
     loaderOptions: {
       sass: {

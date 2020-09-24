@@ -1,9 +1,9 @@
 <template>
   <div
-    :class="'pacman ' + pacmanData.looking"
+    :class="'pacman ' + looking"
     :style="{
-      left: pacmanData.position.left + 'px',
-      top: pacmanData.position.top + 'px'
+      left: position.left + 'px',
+      top: position.top + 'px'
     }"
   >
     <PacmanSVG class="svg" />
@@ -42,20 +42,16 @@ export default defineComponent({
       } else if (looking === "right") {
         pacmanData.position.left = Math.min(
           currentLeft + props.speed,
-          window.innerWidth - BORDER - BORDER - FOODSIZE
+          window.innerWidth - BORDER - FOODSIZE
         );
       } else if (looking === "up") {
-        pacmanData.position.top = Math.max(
-          currentTop - props.speed,
-          HEADERSIZE + BORDER
-        );
+        pacmanData.position.top = Math.max(currentTop - props.speed, 0);
       } else {
         pacmanData.position.top = Math.min(
           currentTop + props.speed,
-          window.innerHeight - BORDER - BORDER - HEADERSIZE - FOODSIZE
+          window.innerHeight - BORDER - FOODSIZE - HEADERSIZE
         );
       }
-      console.log("move");
     };
     const rotate = keyCode => {
       if (keyCode === 37) {
@@ -83,8 +79,8 @@ export default defineComponent({
       document.addEventListener("keydown", handleKeyDown);
       setInterval(move, 100);
     });
-
-    return { pacmanData };
+    const { looking, position } = toRefs(pacmanData);
+    return { looking, position };
   }
 });
 </script>

@@ -3,7 +3,7 @@
     <span class="title">PACMAN</span>
     <span class="score"
       >SCORE:{{ points }}
-      <span class="points">{{ playing ? playing : "GAME OVER" }}</span>
+      <span class="points">{{ playing ? "PLAYING" : "GAME OVER" }}</span>
     </span>
   </header>
 </template>

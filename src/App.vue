@@ -1,18 +1,27 @@
 <template>
   <div class="pacman-app">
-    <Header></Header>
-    <Scene />
+    <Header :points="points" :playing="playing"></Header>
+    <Scene @handle_points="handlePoints" />
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import Header from "./components/Header";
 import Scene from "./components/Scene";
 export default defineComponent({
   components: {
     Header,
     Scene
+  },
+  setup() {
+    const points = ref(0);
+    const playing = ref(false);
+    const handlePoints = () => {
+      console.log(1);
+      points.value = points.value + 1;
+    };
+    return { points, playing, handlePoints };
   }
 });
 </script>

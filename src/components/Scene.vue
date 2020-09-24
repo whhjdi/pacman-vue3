@@ -38,13 +38,6 @@ export default defineComponent({
   },
 
   async mounted() {
-    window.addEventListener("resize", () => {
-      console.log(11);
-      this.positions = [];
-      this.renderFood(this.calcFoods());
-      clearInterval(this.timer);
-      this.timer = setInterval(this.lookForEat, 200);
-    });
     this.renderFood(this.calcFoods());
     await nextTick();
     this.timer = setInterval(this.lookForEat, 200);
@@ -66,7 +59,7 @@ export default defineComponent({
 
       for (let i = 0; i < allFoods; i++) {
         //如果向右没有空间了，就向下排；
-        if (currentLeft + FOODSIZE >= window.innerWidth - BORDER) {
+        if (currentLeft + FOODSIZE > window.innerWidth - BORDER) {
           currentTop += FOODSIZE;
           //从下一行第一个位置开始
           currentLeft = 0;
@@ -108,8 +101,11 @@ export default defineComponent({
             (pacmanY >= currentFoodY && pacmanY <= currentFoodNewY) ||
             (pacmanNewY >= currentFoodY && pacmanNewY <= currentFoodNewY)
           ) {
-            if (this.$refs["food-" + i].foodVisible)
+            if (this.$refs["food-" + i].foodVisible) {
               this.$refs["food-" + i].foodVisible = false;
+              // eslint-disable-next-line vue/custom-event-name-casing
+              this.$emit("handle_points");
+            }
           }
         }
       }

@@ -9,14 +9,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  setup() {
-    const points = ref<number>(0);
-    const playing = ref<boolean>(false);
-
-    return { points, playing };
+  props: {
+    points: {
+      type: Number,
+      default: 10
+    },
+    playing: {
+      type: Boolean,
+      default: true
+    }
   }
 });
 </script>
